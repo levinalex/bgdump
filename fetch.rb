@@ -38,7 +38,9 @@ def save_bgbl(uri, number, day, month, year)
   end
 end
 
-open_with_cache(ARGV[0]) do |data|
+uri = gets.strip
+
+open_with_cache(uri) do |data|
   doc = Nokogiri::HTML(data)
 
   doc.xpath('///a[@href][span[img]]').each do |link|
