@@ -1,3 +1,5 @@
 *.swp
-cache
 data
+out
+tmp
+uri
