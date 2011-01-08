@@ -28,9 +28,9 @@ def save_bgbl(uri, number, day, month, year)
   FileUtils.mkdir_p(path)
 
   if File.exist?(fpath)
-    warn "exists"
+    warn "skipped #{fpath}"
   else
-    puts "writing #{fpath}"
+    warn "writing #{fpath}"
     sleep rand(5)
     File.open(fpath, "w") do |f|
       f.write(open(uri).read)
@@ -45,7 +45,7 @@ open_with_cache(ARGV[0]) do |data|
     open_with_cache(link["href"]) do |f2|
       d2 = Nokogiri::HTML(f2)
       d2.xpath('///a').each do |l|
-        if l["title"] =~ /(\d+).*vom.*(\d+)\.(\d+)\.(\d+)/
+        if l["title"] =~ /(\d+).*?vom.*?(\d+)\.(\d+)\.(\d+)/
           number, day, month, year = $1, $2, $3, $4
           open_with_cache(l["href"]) do |f3|
             d3 = Nokogiri::HTML(f3)
